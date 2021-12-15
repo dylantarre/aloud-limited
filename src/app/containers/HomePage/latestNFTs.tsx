@@ -73,6 +73,7 @@ export function LatestNFTS () {
     return <LatestNFTsContainer>
         <Title>Latest NFTs</Title>
         <NFTsContainer>
+            
             <NFT {...testNFT2} />
             <NFT {...testNFT2} />
             <NFT {...testNFT3} />
