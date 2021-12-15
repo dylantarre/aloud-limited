@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const GET_ALL_NFTS = gql`
-    query {
+    query getNFTs {
         nfTs {
             id
             title

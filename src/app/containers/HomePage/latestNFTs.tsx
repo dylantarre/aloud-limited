@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import styled from "styled-components";
 import tw from "twin.macro";
 import { INFT } from "../../../typings/nft";
 import { NFT } from "../../components/nft";
+import { SCREENS } from "../../responsive";
+import nftService from "../../services/nftService";
 
 const LatestNFTsContainer = styled.div`
     ${tw`
@@ -41,6 +44,18 @@ const NFTsContainer = styled.div`
 
 export function LatestNFTS () {
 
+    const [current, setCurrent] = useState(0);
+    const isMobile=useMediaQuery({ maxWidth: SCREENS.sm});
+
+    const fetchNFTs = async () =>  {
+        const nfts = await nftService.getNFTs().catch((err) => {
+
+            console.log("Error: ", err);
+        });
+        console.log("NFTs: ", nfts)
+
+    }
+
     const testNFT3: INFT = {    
         NFTSrc: "https://aloud.limited/assets/Simple-Black-Pair-1000.png",
         shirtSrc: "../../../assets/images/Tall-Unisex.png",
@@ -68,6 +83,24 @@ export function LatestNFTS () {
         price: "N/A",
         dropDate: "02/22/22"
     }
+
+    const testNFT: INFT = {    
+        NFTSrc: "https://aloud.limited/assets/Simple-Charcoal-Pair-1000.png",
+        shirtSrc: "../../../assets/images/Tall-Unisex.png",
+        swatchSrc: "../../../assets/images/swatch-charcoal.png",
+        patternTitle: "Simple",
+        color: "Charcoal",
+        status: "Printed",
+        proverb: "Most things are actually a lot more simple than your realize. 🤔  What seems like chaos can be reduced to a simple pattern if you look deeply. Once you see it all of the chaos makes sense.",
+        forsale: "No",
+        owner: "Dylan Tarre",
+        price: "N/A",
+        dropDate: "02/22/22"
+    };
+
+    useEffect(() => {
+        fetchNFTs();
+    }, []); 
 
 
     return <LatestNFTsContainer>
